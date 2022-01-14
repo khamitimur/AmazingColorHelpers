@@ -7,25 +7,25 @@
     
 import Foundation
 
-private extension Int {
+private extension Float {
     
     // MARK: - Type Properties
     
-    static let minHueValue: Int = 0
+    static let minHueValue: Float = 0.0
     
-    static let maxHueValue: Int = 360
+    static let maxHueValue: Float = 360.0
     
-    static let minSaturationValue: Int = 0
+    static let minSaturationValue: Float = 0.0
     
-    static let maxSaturationValue: Int = 100
+    static let maxSaturationValue: Float = 100.0
     
-    static let minBrightnessValue: Int = 0
+    static let minBrightnessValue: Float = 0.0
     
-    static let maxBrightnessValue: Int = 100
+    static let maxBrightnessValue: Float = 100.0
     
-    static let minLightnessValue: Int = 0
+    static let minLightnessValue: Float = 0.0
     
-    static let maxLightnessValue: Int = 100
+    static let maxLightnessValue: Float = 100.0
 }
 
 public protocol IAmazingColorHelpers: AnyObject {
@@ -37,28 +37,28 @@ public protocol IAmazingColorHelpers: AnyObject {
     ///   - hue: Hue value in degrees.
     ///   - saturation: Saturation value in percents.
     ///   - brightness: Brightness value in percents.
-    func normalized(hue: Int, saturation: Int, brightness: Int) -> (hue: Int, saturation: Int, brightness: Int)
+    func normalized(hue: Float, saturation: Float, brightness: Float) -> (hue: Float, saturation: Float, brightness: Float)
     
     /// Returns normalized HSB color values.
     /// - Parameters:
     ///   - hue: Hue value in degrees.
     ///   - saturation: Saturation value in percents.
     ///   - lightness: Lightness value in percents.
-    func normalized(hue: Int, saturation: Int, lightness: Int) -> (hue: Int, saturation: Int, lightness: Int)
+    func normalized(hue: Float, saturation: Float, lightness: Float) -> (hue: Float, saturation: Float, lightness: Float)
     
     /// Returns RGB color values from provided HSB color values.
     /// - Parameters:
     ///   - hue: Hue value in degrees.
     ///   - saturation: Saturation value in percents.
     ///   - brightness: Brightness value in percents.
-    func rgb(hue: Int, saturation: Int, brightness: Int) -> (red: UInt8, green: UInt8, blue: UInt8)
+    func rgb(hue: Float, saturation: Float, brightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8)
     
     /// Returns HSB color values from provided RGB color values.
     /// - Parameters:
     ///   - red: Red component value.
     ///   - green: Green component value.
     ///   - blue: Blue component value.
-    func hsb(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Int, saturation: Int, brightness: Int)
+    func hsb(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Float, saturation: Float, brightness: Float)
 }
 
 public final class AmazingColorHelpers: IAmazingColorHelpers {
@@ -73,7 +73,7 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
     
     // MARK: - IAmazingColorHelpers
     
-    public func normalized(hue: Int, saturation: Int, brightness: Int) -> (hue: Int, saturation: Int, brightness: Int) {
+    public func normalized(hue: Float, saturation: Float, brightness: Float) -> (hue: Float, saturation: Float, brightness: Float) {
         let hue = normalized(hue: hue)
         let saturation = normalized(saturation: saturation)
         let brightness = normalized(brightness: brightness)
@@ -81,7 +81,7 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         return (hue, saturation, brightness)
     }
     
-    public func normalized(hue: Int, saturation: Int, lightness: Int) -> (hue: Int, saturation: Int, lightness: Int) {
+    public func normalized(hue: Float, saturation: Float, lightness: Float) -> (hue: Float, saturation: Float, lightness: Float) {
         let hue = normalized(hue: hue)
         let saturation = normalized(saturation: saturation)
         let lightness = normalized(lightness: lightness)
@@ -89,12 +89,12 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         return (hue, saturation, lightness)
     }
     
-    public func rgb(hue: Int, saturation: Int, brightness: Int) -> (red: UInt8, green: UInt8, blue: UInt8) {
+    public func rgb(hue: Float, saturation: Float, brightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8) {
         let (hue, saturation, brightness) = normalized(hue: hue, saturation: saturation, brightness: brightness)
         
-        let hueF = Float(hue)
-        let saturationF = Float(saturation) / 100.0
-        let brightnessF = Float(brightness) / 100.0
+        let hueF = hue
+        let saturationF = saturation / 100.0
+        let brightnessF = brightness / 100.0
         
         let C = brightnessF * saturationF
         let X = C * (1 - abs((hueF / 60.0).truncatingRemainder(dividingBy: 2.0) - 1))
@@ -103,23 +103,23 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         
         let r, g, b: Float
         
-        if hue < 60 {
+        if hue < 60.0 {
             r = C
             g = X
             b = 0.0
-        } else if hue < 120 {
+        } else if hue < 120.0 {
             r = X
             g = C
             b = 0.0
-        } else if hue < 180 {
+        } else if hue < 180.0 {
             r = 0.0
             g = C
             b = X
-        } else if hue < 240 {
+        } else if hue < 240.0 {
             r = 0.0
             g = X
             b = C
-        } else if hue < 300 {
+        } else if hue < 300.0 {
             r = X
             g = 0.0
             b = C
@@ -136,7 +136,7 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         return (red, green, blue)
     }
     
-    public func hsb(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Int, saturation: Int, brightness: Int) {
+    public func hsb(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Float, saturation: Float, brightness: Float) {
         let redF = Float(red) / 255
         let greenF = Float(green) / 255
         let blueF = Float(blue) / 255
@@ -166,18 +166,18 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
             s = cDelta / cMax
         }
         
-        let hue = Int(round(h))
-        let saturation = Int(round(s * 100))
-        let brightness = Int(round(b * 100))
+        let hue = h.rounded(1)
+        let saturation = (s * 100).rounded(1)
+        let brightness = (b * 100).rounded(1)
         
         return (hue, saturation, brightness)
     }
     
     // MARK: - Type Methods
     
-    /// Returns normalized hue value in degrees from 0 to 360.
+    /// Returns normalized hue component value in degrees.
     /// - Parameter hue: Hue value in degrees.
-    private func normalized(hue: Int) -> Int {
+    private func normalized(hue: Float) -> Float {
         if hue < .minHueValue {
             return .minHueValue
         }
@@ -189,9 +189,9 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         return hue
     }
     
-    /// Returns normalized saturation value in percents from 0 to 100.
+    /// Returns normalized saturation component value in percents.
     /// - Parameter saturation: Saturation value in percents.
-    private func normalized(saturation: Int) -> Int {
+    private func normalized(saturation: Float) -> Float {
         if saturation < .minSaturationValue {
             return .minSaturationValue
         }
@@ -203,9 +203,9 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         return saturation
     }
     
-    /// Returns normalized brightness value in percents from 0 to 100.
+    /// Returns normalized brightness component value in percents from.
     /// - Parameter brightness: Brightness value in percents.
-    private func normalized(brightness: Int) -> Int {
+    private func normalized(brightness: Float) -> Float {
         if brightness < .minBrightnessValue {
             return .minBrightnessValue
         }
@@ -217,9 +217,9 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         return brightness
     }
     
-    /// Returns normalized lightness value in percents from 0 to 100.
+    /// Returns normalized lightness component value in percents from.
     /// - Parameter brightness: Lightness value in percents.
-    private func normalized(lightness: Int) -> Int {
+    private func normalized(lightness: Float) -> Float {
         if lightness < .minLightnessValue {
             return .minLightnessValue
         }

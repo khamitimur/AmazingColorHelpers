@@ -1,6 +1,6 @@
 //
 //  AmazingColorHelpersTests+RGB+HueSaturationBrightness.swift
-//  
+//
 //
 //  Created by Timur Khamidov on 14.01.2022.
 //
@@ -15,9 +15,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan60Degrees() {
         // given
-        let hue = 34
-        let saturation = 75
-        let brightness = 12
+        let hue: Float = 34.0
+        let saturation: Float = 75.0
+        let brightness: Float = 12.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
@@ -34,9 +34,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan120Degrees() {
         // given
-        let hue = 104
-        let saturation = 98
-        let brightness = 65
+        let hue: Float = 104.0
+        let saturation: Float = 98.0
+        let brightness: Float = 65.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
@@ -53,9 +53,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan180Degrees() {
         // given
-        let hue = 178
-        let saturation = 67
-        let brightness = 98
+        let hue: Float = 178.0
+        let saturation: Float = 67.0
+        let brightness: Float = 98.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
@@ -72,9 +72,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan240Degrees() {
         // given
-        let hue = 202
-        let saturation = 87
-        let brightness = 48
+        let hue: Float = 202.0
+        let saturation: Float = 87.0
+        let brightness: Float = 48.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
@@ -91,9 +91,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan300Degrees() {
         // given
-        let hue = 294
-        let saturation = 57
-        let brightness = 58
+        let hue: Float = 294.0
+        let saturation: Float = 57.0
+        let brightness: Float = 58.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
@@ -110,9 +110,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan360Degrees() {
         // given
-        let hue = 354
-        let saturation = 16
-        let brightness = 100
+        let hue: Float = 354.0
+        let saturation: Float = 16.0
+        let brightness: Float = 100.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
@@ -129,9 +129,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsEqualTo360Degrees() {
         // given
-        let hue = 360
-        let saturation = 75
-        let brightness = 12
+        let hue: Float = 360.0
+        let saturation: Float = 75.0
+        let brightness: Float = 12.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
@@ -148,9 +148,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenAllValuesAreLowerThanNormal() {
         // given
-        let hue = -12
-        let saturation = -75
-        let brightness = -12
+        let hue: Float = -12.0
+        let saturation: Float = -75.0
+        let brightness: Float = -12.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
@@ -167,9 +167,9 @@ extension AmazingColorHelpersTests {
     
     func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenAllValuesAreHigherThanNormal() {
         // given
-        let hue = 412
-        let saturation = 175
-        let brightness = 112
+        let hue: Float = 412.0
+        let saturation: Float = 175.0
+        let brightness: Float = 112.0
         
         // when
         let (red, green, blue) = AmazingColorHelpers.shared.rgb(
