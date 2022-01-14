@@ -32,28 +32,28 @@ public protocol IAmazingColorHelpers: AnyObject {
     
     // MARK: - Methods
     
-    /// Returns normalized HSB color values.
+    /// Returns normalized HSB color components values.
     /// - Parameters:
     ///   - hue: Hue value in degrees.
     ///   - saturation: Saturation value in percents.
     ///   - brightness: Brightness value in percents.
     func normalized(hue: Float, saturation: Float, brightness: Float) -> (hue: Float, saturation: Float, brightness: Float)
     
-    /// Returns normalized HSB color values.
+    /// Returns normalized HSB color components values.
     /// - Parameters:
     ///   - hue: Hue value in degrees.
     ///   - saturation: Saturation value in percents.
     ///   - lightness: Lightness value in percents.
     func normalized(hue: Float, saturation: Float, lightness: Float) -> (hue: Float, saturation: Float, lightness: Float)
     
-    /// Returns RGB color values from provided HSB color values.
+    /// Returns RGB color components values from provided HSB color components values.
     /// - Parameters:
     ///   - hue: Hue value in degrees.
     ///   - saturation: Saturation value in percents.
     ///   - brightness: Brightness value in percents.
     func rgb(hue: Float, saturation: Float, brightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8)
     
-    /// Returns HSB color values from provided RGB color values.
+    /// Returns HSB color components values from provided RGB color components values.
     /// - Parameters:
     ///   - red: Red component value.
     ///   - green: Green component value.
@@ -176,7 +176,7 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
     // MARK: - Type Methods
     
     /// Returns normalized hue component value in degrees.
-    /// - Parameter hue: Hue value in degrees.
+    /// - Parameter hue: Hue component value in degrees.
     private func normalized(hue: Float) -> Float {
         if hue < .minHueValue {
             return .minHueValue
@@ -190,7 +190,7 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
     }
     
     /// Returns normalized saturation component value in percents.
-    /// - Parameter saturation: Saturation value in percents.
+    /// - Parameter saturation: Saturation component value in percents.
     private func normalized(saturation: Float) -> Float {
         if saturation < .minSaturationValue {
             return .minSaturationValue
@@ -204,7 +204,7 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
     }
     
     /// Returns normalized brightness component value in percents from.
-    /// - Parameter brightness: Brightness value in percents.
+    /// - Parameter brightness: Brightness component value in percents.
     private func normalized(brightness: Float) -> Float {
         if brightness < .minBrightnessValue {
             return .minBrightnessValue
@@ -218,7 +218,7 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
     }
     
     /// Returns normalized lightness component value in percents from.
-    /// - Parameter brightness: Lightness value in percents.
+    /// - Parameter brightness: Lightness component value in percents.
     private func normalized(lightness: Float) -> Float {
         if lightness < .minLightnessValue {
             return .minLightnessValue
