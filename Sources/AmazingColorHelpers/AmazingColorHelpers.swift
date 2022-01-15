@@ -4,7 +4,7 @@
 //
 //  Created by Timur Khamidov on 13.01.2022
 //
-    
+
 import Foundation
 
 private extension Float {
@@ -52,6 +52,12 @@ public protocol IAmazingColorHelpers: AnyObject {
     ///   - saturation: Saturation value in percents.
     ///   - brightness: Brightness value in percents.
     func rgb(hue: Float, saturation: Float, brightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8)
+    
+    /// Returns RGB color components values from provided hex triplet color representation.
+    /// - Remark: Returns `nil` when provided hex triplet is not valid.
+    /// - Parameters:
+    ///   - hex: Hex triplet color representation.
+    func rgb(hex: String) -> (red: UInt8, green: UInt8, blue: UInt8)?
     
     /// Returns HSB color components values from provided RGB color components values.
     /// - Parameters:
@@ -132,6 +138,36 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         let red = UInt8(round((r + m) * 255))
         let green = UInt8(round((g + m) * 255))
         let blue = UInt8(round((b + m) * 255))
+        
+        return (red, green, blue)
+    }
+    
+    public func rgb(hex: String) -> (red: UInt8, green: UInt8, blue: UInt8)? {
+        var hexString = hex
+        
+        if hexString.hasPrefix("#") {
+            hexString.removeFirst()
+        }
+        
+        guard hexString.count == 6 else {
+            return nil
+        }
+        
+        let scanner = Scanner(string: hexString)
+        
+        var hexNumber: UInt64 = 0
+        
+        guard scanner.scanHexInt64(&hexNumber) else {
+            return nil
+        }
+        
+        let r = (hexNumber & 0xFF0000) >> 16
+        let g = (hexNumber & 0x00FF00) >> 8
+        let b = hexNumber & 0x0000FF
+        
+        let red = UInt8(r)
+        let green = UInt8(g)
+        let blue = UInt8(b)
         
         return (red, green, blue)
     }

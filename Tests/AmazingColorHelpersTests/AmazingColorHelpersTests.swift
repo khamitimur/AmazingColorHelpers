@@ -11,4 +11,9 @@ import XCTest
 
 final class AmazingColorHelpersTests: XCTestCase {
     
+    override func setUp() {
+        super.setUp()
+        
+        super.continueAfterFailure = false
+    }
 }
