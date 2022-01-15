@@ -14,6 +14,8 @@ extension AmazingColorHelpersTests {
     // MARK: - Tests
     
     func test_amazingColorHelpers_rgb_hex() {
+        continueAfterFailure = false
+        
         // given
         let hex: String = "01006A"
         
@@ -29,6 +31,8 @@ extension AmazingColorHelpersTests {
     }
     
     func test_amazingColorHelpers_rgb_hex_whenHexStartsWithOctothorpe() {
+        continueAfterFailure = false
+        
         // given
         let hex: String = "#E735D5"
         
