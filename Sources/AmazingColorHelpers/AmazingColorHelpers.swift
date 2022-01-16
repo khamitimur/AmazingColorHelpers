@@ -46,6 +46,13 @@ public protocol IAmazingColorHelpers: AnyObject {
     ///   - lightness: Lightness value in percents.
     func normalized(hue: Float, saturation: Float, lightness: Float) -> (hue: Float, saturation: Float, lightness: Float)
     
+    /// Returns RGB color components values in percents in range from 0.0 to 1.0.
+    /// - Parameters:
+    ///   - red: Red component value.
+    ///   - green: Green component value.
+    ///   - blue: Blue component value.
+    func percents(red: UInt8, green: UInt8, blue: UInt8) -> (red: Float, green: Float, blue: Float)
+    
     /// Returns RGB color components values from provided hex triplet color representation.
     /// - Remark: Returns `nil` when provided hex triplet is not valid.
     /// - Parameters:
@@ -107,6 +114,14 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         let lightness = normalized(lightness: lightness)
         
         return (hue, saturation, lightness)
+    }
+    
+    public func percents(red: UInt8, green: UInt8, blue: UInt8) -> (red: Float, green: Float, blue: Float) {
+        let redF = Float(red) / 255
+        let greenF = Float(green) / 255
+        let blueF = Float(blue) / 255
+        
+        return (redF, greenF, blueF)
     }
     
     public func rgb(hex: String) -> (red: UInt8, green: UInt8, blue: UInt8)? {
@@ -265,14 +280,6 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         }
         
         return lightness
-    }
-    
-    private func percents(red: UInt8, green: UInt8, blue: UInt8) -> (red: Float, green: Float, blue: Float) {
-        let redF = Float(red) / 255
-        let greenF = Float(green) / 255
-        let blueF = Float(blue) / 255
-        
-        return (redF, greenF, blueF)
     }
     
     private func cValues(red: Float, green: Float, blue: Float) -> (cMax: Float, cMin: Float, cDelta: Float) {

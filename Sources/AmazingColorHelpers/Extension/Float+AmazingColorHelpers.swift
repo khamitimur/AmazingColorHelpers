@@ -11,10 +11,10 @@ extension Float {
     
     // MARK: - Methods
     
-    /// Return rounded value.
-    /// - Parameter fraction: Number of digits in fraction.
-    func rounded(_ fraction: Int) -> Float {
-        let multiplier = pow(10.0, Float(fraction))
+    /// Returns a rounded value.
+    /// - Parameter fraction: Number of digits in a fraction part of a rounded value.
+    func rounded(_ precision: Int) -> Float {
+        let multiplier = pow(10.0, Float(precision))
         
         return (self * multiplier).rounded() / multiplier
     }
