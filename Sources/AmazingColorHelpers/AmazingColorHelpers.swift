@@ -59,6 +59,13 @@ public protocol IAmazingColorHelpers: AnyObject {
     ///   - brightness: Brightness value in percents.
     func rgb(hue: Float, saturation: Float, brightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8)
     
+    /// Returns RGB color components values from provided HSL color components values.
+    /// - Parameters:
+    ///   - hue: Hue value in degrees.
+    ///   - saturation: Saturation value in percents.
+    ///   - lightness: Lightness value in percents.
+    func rgb(hue: Float, saturation: Float, lightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8)
+    
     /// Returns HSB color components values from provided RGB color components values.
     /// - Parameters:
     ///   - red: Red component value.
@@ -135,48 +142,29 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
     public func rgb(hue: Float, saturation: Float, brightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8) {
         let (hue, saturation, brightness) = normalized(hue: hue, saturation: saturation, brightness: brightness)
         
-        let hueF = hue
         let saturationF = saturation / 100.0
         let brightnessF = brightness / 100.0
         
         let C = brightnessF * saturationF
-        let X = C * (1 - abs((hueF / 60.0).truncatingRemainder(dividingBy: 2.0) - 1))
+        let X = C * (1 - abs((hue / 60.0).truncatingRemainder(dividingBy: 2.0) - 1))
         
         let m = brightnessF - C
         
-        let r, g, b: Float
+        return rgb(hue: hue, C: C, X: X, m: m)
+    }
+    
+    public func rgb(hue: Float, saturation: Float, lightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8) {
+        let (hue, saturation, lightness) = normalized(hue: hue, saturation: saturation, lightness: lightness)
         
-        if hue < 60.0 {
-            r = C
-            g = X
-            b = 0.0
-        } else if hue < 120.0 {
-            r = X
-            g = C
-            b = 0.0
-        } else if hue < 180.0 {
-            r = 0.0
-            g = C
-            b = X
-        } else if hue < 240.0 {
-            r = 0.0
-            g = X
-            b = C
-        } else if hue < 300.0 {
-            r = X
-            g = 0.0
-            b = C
-        } else {
-            r = C
-            g = 0.0
-            b = X
-        }
+        let saturationF = saturation / 100.0
+        let lightnessF = lightness / 100.0
         
-        let red = UInt8(round((r + m) * 255))
-        let green = UInt8(round((g + m) * 255))
-        let blue = UInt8(round((b + m) * 255))
+        let C = (1 - abs(2 * lightnessF - 1)) * saturationF
+        let X = C * (1 - abs((hue / 60.0).truncatingRemainder(dividingBy: 2.0) - 1))
         
-        return (red, green, blue)
+        let m = lightnessF - C / 2
+        
+        return rgb(hue: hue, C: C, X: X, m: m)
     }
     
     public func hsb(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Float, saturation: Float, brightness: Float) {
@@ -316,5 +304,41 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         }
         
         return hue
+    }
+    
+    private func rgb(hue: Float, C: Float, X: Float, m: Float) -> (red: UInt8, green: UInt8, blue: UInt8) {
+        let r, g, b: Float
+        
+        if hue < 60.0 {
+            r = C
+            g = X
+            b = 0.0
+        } else if hue < 120.0 {
+            r = X
+            g = C
+            b = 0.0
+        } else if hue < 180.0 {
+            r = 0.0
+            g = C
+            b = X
+        } else if hue < 240.0 {
+            r = 0.0
+            g = X
+            b = C
+        } else if hue < 300.0 {
+            r = X
+            g = 0.0
+            b = C
+        } else {
+            r = C
+            g = 0.0
+            b = X
+        }
+        
+        let red = UInt8(round((r + m) * 255))
+        let green = UInt8(round((g + m) * 255))
+        let blue = UInt8(round((b + m) * 255))
+        
+        return (red, green, blue)
     }
 }
