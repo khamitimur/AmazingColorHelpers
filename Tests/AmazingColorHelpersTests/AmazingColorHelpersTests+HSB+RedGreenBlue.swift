@@ -27,16 +27,16 @@ extension AmazingColorHelpersTests {
         )
         
         // then
-        XCTAssertEqual(hue, 314.8)
-        XCTAssertEqual(saturation, 87.5)
-        XCTAssertEqual(brightness, 100.0)
+        XCTAssertEqual(hue, 314.79822)
+        XCTAssertEqual(saturation, 87.45098)
+        XCTAssertEqual(brightness, 100.00)
     }
     
     func test_amazingColorHelpers_hsb_red_green_blue_whenGreenIsHighestValue() {
         // given
         let red: UInt8 = 25
         let green: UInt8 = 220
-        let blue: UInt8 = 97
+        let blue: UInt8 = 98
         
         // when
         let (hue, saturation, brightness) = AmazingColorHelpers.shared.hsb(
@@ -46,9 +46,9 @@ extension AmazingColorHelpersTests {
         )
         
         // then
-        XCTAssertEqual(hue, 142.2)
-        XCTAssertEqual(saturation, 88.6)
-        XCTAssertEqual(brightness, 86.3)
+        XCTAssertEqual(hue, 142.46153)
+        XCTAssertEqual(saturation, 88.63636)
+        XCTAssertEqual(brightness, 86.27451)
     }
     
     func test_amazingColorHelpers_hsb_red_green_blue_whenBlueIsHighestValue() {
@@ -65,9 +65,9 @@ extension AmazingColorHelpersTests {
         )
         
         // then
-        XCTAssertEqual(hue, 266.2)
-        XCTAssertEqual(saturation, 83.7)
-        XCTAssertEqual(brightness, 48.2)
+        XCTAssertEqual(hue, 266.21362)
+        XCTAssertEqual(saturation, 83.73984)
+        XCTAssertEqual(brightness, 48.235294)
     }
     
     func test_amazingColorHelpers_hsb_red_green_blue_whenAllValuesAreEqualTo0() {

@@ -27,9 +27,9 @@ extension AmazingColorHelpersTests {
         )
         
         // then
-        XCTAssertEqual(hue, 314.8)
+        XCTAssertEqual(hue, 314.79822)
         XCTAssertEqual(saturation, 100.0)
-        XCTAssertEqual(lightness, 56.3)
+        XCTAssertEqual(lightness, 56.27451)
     }
     
     func test_amazingColorHelpers_hsl_red_green_blue_whenGreenIsHighestValue() {
@@ -47,8 +47,8 @@ extension AmazingColorHelpersTests {
         
         // then
         XCTAssertEqual(hue, 168.0)
-        XCTAssertEqual(saturation, 58.8)
-        XCTAssertEqual(lightness, 66.7)
+        XCTAssertEqual(saturation, 58.823532)
+        XCTAssertEqual(lightness, 66.66667)
     }
     
     func test_amazingColorHelpers_hsl_red_green_blue_whenBlueIsHighestValue() {
@@ -65,9 +65,9 @@ extension AmazingColorHelpersTests {
         )
         
         // then
-        XCTAssertEqual(hue, 296.9)
-        XCTAssertEqual(saturation, 31.6)
-        XCTAssertEqual(lightness, 36.7)
+        XCTAssertEqual(hue, 296.94916)
+        XCTAssertEqual(saturation, 31.5508)
+        XCTAssertEqual(lightness, 36.666668)
     }
     
     func test_amazingColorHelpers_hsl_red_green_blue_whenAllValuesAreEqualTo0() {

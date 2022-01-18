@@ -46,7 +46,7 @@ public protocol IAmazingColorHelpers: AnyObject {
     ///   - lightness: Lightness value in percents.
     func normalized(hue: Float, saturation: Float, lightness: Float) -> (hue: Float, saturation: Float, lightness: Float)
     
-    /// Returns RGB color components values in percents in range from 0.0 to 1.0.
+    /// Returns RGB color components values in percents in the range from 0.0 to 1.0.
     /// - Parameters:
     ///   - red: Red component value.
     ///   - green: Green component value.
@@ -80,12 +80,26 @@ public protocol IAmazingColorHelpers: AnyObject {
     ///   - blue: Blue component value.
     func hsb(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Float, saturation: Float, brightness: Float)
     
+    /// Returns HSB color components values from provided HSL color components values.
+    /// - Parameters:
+    ///   - hue: Hue value in degrees.
+    ///   - saturation: Saturation value in percents.
+    ///   - lightness: Lightness value in percents.
+    func hsb(hue: Float, saturation: Float, lightness: Float)  -> (hue: Float, saturation: Float, brightness: Float)
+    
     /// Returns HSL color components values from provided RGB color components values.
     /// - Parameters:
     ///   - red: Red component value.
     ///   - green: Green component value.
     ///   - blue: Blue component value.
     func hsl(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Float, saturation: Float, lightness: Float)
+    
+    /// Returns HSL color components values from provided HSB color components values. // color space?
+    /// - Parameters:
+    ///   - hue: Hue value in degrees. //component?
+    ///   - saturation: Saturation value in percents.
+    ///   - brightness: Brightness value in percents.
+    func hsl(hue: Float, saturation: Float, brightness: Float) -> (hue: Float, saturation: Float, lightness: Float)
 }
 
 public final class AmazingColorHelpers: IAmazingColorHelpers {
@@ -187,8 +201,8 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         let (cMax, _, cDelta) = cValues(red: redF, green: greenF, blue: blueF)
         
         let h: Float = hue(red: redF, green: greenF, blue: blueF, cMax: cMax, cDelta: cDelta)
-        let s: Float
-        let b: Float = cMax
+        var s: Float
+        var b: Float = cMax
         
         if cMax == 0.0 {
             s = 0.0
@@ -196,11 +210,32 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
             s = cDelta / cMax
         }
         
-        let hue = h.rounded(1)
-        let saturation = (s * 100.0).rounded(1)
-        let brightness = (b * 100.0).rounded(1)
+        s = (s * 100.0)
+        b = (b * 100.0)
         
-        return (hue, saturation, brightness)
+        return (h, s, b)
+    }
+    
+    public func hsb(hue: Float, saturation: Float, lightness: Float)  -> (hue: Float, saturation: Float, brightness: Float) {
+        let (hue, saturation, lightness) = normalized(hue: hue, saturation: saturation, lightness: lightness)
+        
+        let saturationF = saturation / 100.0
+        let lightnessF = lightness / 100.0
+        
+        let h: Float = hue
+        var s: Float
+        var b: Float = lightnessF + (saturationF * min(lightnessF, 1 - lightnessF))
+        
+        if b == 0.0 {
+            s = 0.0
+        } else {
+            s = 2 * (1 - (lightnessF / b))
+        }
+        
+        s *= 100.0
+        b *= 100.0
+        
+        return (h, s, b)
     }
     
     public func hsl(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Float, saturation: Float, lightness: Float) {
@@ -208,8 +243,8 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
         let (cMax, cMin, cDelta) = cValues(red: redF, green: greenF, blue: blueF)
         
         let h: Float = hue(red: redF, green: greenF, blue: blueF, cMax: cMax, cDelta: cDelta)
-        let s: Float
-        let l: Float = (cMax + cMin) / 2
+        var s: Float
+        var l: Float = (cMax + cMin) / 2
         
         if cDelta == 0.0 {
             s = 0.0
@@ -217,11 +252,32 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
             s = cDelta / (1 - abs(2 * l - 1))
         }
         
-        let hue = h.rounded(1)
-        let saturation = (s * 100.0).rounded(1)
-        let lightness = (l * 100.0).rounded(1)
+        s = (s * 100.0)
+        l = (l * 100.0)
         
-        return (hue, saturation, lightness)
+        return (h, s, l)
+    }
+    
+    public func hsl(hue: Float, saturation: Float, brightness: Float) -> (hue: Float, saturation: Float, lightness: Float) {
+        let (hue, saturation, brightness) = normalized(hue: hue, saturation: saturation, brightness: brightness)
+        
+        let saturationF = saturation / 100.0
+        let brightnessF = brightness / 100.0
+        
+        let h: Float = hue
+        var s: Float
+        var l: Float = brightnessF * (1.0 - saturationF / 2.0)
+        
+        if l == 0.0 || l == 1.0 {
+            s = 0.0
+        } else {
+            s = (brightnessF - l) / min(l, 1.0 - l)
+        }
+        
+        s *= 100.0
+        l *= 100.0
+        
+        return (h, s, l)
     }
     
     // MARK: - Private Methods
