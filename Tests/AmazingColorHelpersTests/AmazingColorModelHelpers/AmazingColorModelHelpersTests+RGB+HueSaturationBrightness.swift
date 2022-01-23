@@ -1,5 +1,5 @@
 //
-//  AmazingColorHelpersTests+RGB+HueSaturationBrightness.swift
+//  AmazingColorModelHelpersTests+RGB+HueSaturationBrightness.swift
 //
 //
 //  Created by Timur Khamidov on 14.01.2022.
@@ -9,18 +9,18 @@ import XCTest
 
 @testable import AmazingColorHelpers
 
-extension AmazingColorHelpersTests {
+extension AmazingColorModelHelpersTests {
     
     // MARK: - Tests
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan60Degrees() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan60Degrees() {
         // given
         let hue: Float = 34.0
         let saturation: Float = 75.0
         let brightness: Float = 12.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -32,14 +32,14 @@ extension AmazingColorHelpersTests {
         XCTAssertEqual(blue, 8)
     }
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan120Degrees() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan120Degrees() {
         // given
         let hue: Float = 104.0
         let saturation: Float = 98.0
         let brightness: Float = 65.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -51,14 +51,14 @@ extension AmazingColorHelpersTests {
         XCTAssertEqual(blue, 3)
     }
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan180Degrees() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan180Degrees() {
         // given
         let hue: Float = 178.0
         let saturation: Float = 67.0
         let brightness: Float = 98.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -70,14 +70,14 @@ extension AmazingColorHelpersTests {
         XCTAssertEqual(blue, 244)
     }
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan240Degrees() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan240Degrees() {
         // given
         let hue: Float = 202.0
         let saturation: Float = 87.0
         let brightness: Float = 48.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -89,14 +89,14 @@ extension AmazingColorHelpersTests {
         XCTAssertEqual(blue, 122)
     }
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan300Degrees() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan300Degrees() {
         // given
         let hue: Float = 294.0
         let saturation: Float = 57.0
         let brightness: Float = 58.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -108,14 +108,14 @@ extension AmazingColorHelpersTests {
         XCTAssertEqual(blue, 148)
     }
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan360Degrees() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenHueIsLowerThan360Degrees() {
         // given
         let hue: Float = 354.0
         let saturation: Float = 16.0
         let brightness: Float = 100.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -127,14 +127,14 @@ extension AmazingColorHelpersTests {
         XCTAssertEqual(blue, 218)
     }
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenHueIsEqualTo360Degrees() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenHueIsEqualTo360Degrees() {
         // given
         let hue: Float = 360.0
         let saturation: Float = 75.0
         let brightness: Float = 12.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -146,14 +146,14 @@ extension AmazingColorHelpersTests {
         XCTAssertEqual(blue, 8)
     }
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenAllValuesAreLowerThanNormal() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenAllValuesAreLowerThanNormal() {
         // given
         let hue: Float = -12.0
         let saturation: Float = -75.0
         let brightness: Float = -12.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -165,14 +165,14 @@ extension AmazingColorHelpersTests {
         XCTAssertEqual(blue, 0)
     }
     
-    func test_amazingColorHelpers_rgb_hue_saturation_brightness_whenAllValuesAreHigherThanNormal() {
+    func test_amazingColorModelHelpers_rgb_hue_saturation_brightness_whenAllValuesAreHigherThanNormal() {
         // given
         let hue: Float = 412.0
         let saturation: Float = 175.0
         let brightness: Float = 112.0
         
         // when
-        let (red, green, blue) = AmazingColorHelpers.shared.rgb(
+        let (red, green, blue) = AmazingColorModelHelpers.shared.rgb(
             hue: hue,
             saturation: saturation,
             brightness: brightness
@@ -180,7 +180,7 @@ extension AmazingColorHelpersTests {
         
         // then
         XCTAssertEqual(red, 255)
-        XCTAssertEqual(green, 0)
+        XCTAssertEqual(green, 221)
         XCTAssertEqual(blue, 0)
     }
 }

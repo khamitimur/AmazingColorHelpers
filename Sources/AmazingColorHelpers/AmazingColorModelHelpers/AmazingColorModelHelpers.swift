@@ -1,5 +1,5 @@
 //
-//  AmazingColorHelpers.swift
+//  AmazingColorModelHelpers.swift
 //  
 //
 //  Created by Timur Khamidov on 13.01.2022
@@ -11,124 +11,35 @@ private extension Float {
     
     // MARK: - Type Properties
     
-    static let minHueValue: Float = 0.0
+    static let minPercentsValue: Float = 0.0
     
-    static let maxHueValue: Float = 360.0
-    
-    static let minSaturationValue: Float = 0.0
-    
-    static let maxSaturationValue: Float = 100.0
-    
-    static let minBrightnessValue: Float = 0.0
-    
-    static let maxBrightnessValue: Float = 100.0
-    
-    static let minLightnessValue: Float = 0.0
-    
-    static let maxLightnessValue: Float = 100.0
+    static let maxPercentsValue: Float = 100.0
 }
 
-public protocol IAmazingColorHelpers: AnyObject {
-    
-    // MARK: - Methods
-    
-    /// Returns normalized HSB color model values.
-    /// - Parameters:
-    ///   - hue: Hue value in degrees.
-    ///   - saturation: Saturation value in percents.
-    ///   - brightness: Brightness value in percents.
-    func normalized(hue: Float, saturation: Float, brightness: Float) -> (hue: Float, saturation: Float, brightness: Float)
-    
-    /// Returns normalized HSL color model values.
-    /// - Parameters:
-    ///   - hue: Hue value in degrees.
-    ///   - saturation: Saturation value in percents.
-    ///   - lightness: Lightness value in percents.
-    func normalized(hue: Float, saturation: Float, lightness: Float) -> (hue: Float, saturation: Float, lightness: Float)
-    
-    /// Returns RGB color model values represented in percents from their max values.
-    ///
-    /// RGB color model values represented in percents are in the range from `0.0` to `1.0`.
-    /// - Parameters:
-    ///   - red: Red value.
-    ///   - green: Green value.
-    ///   - blue: Blue value.
-    func percents(red: UInt8, green: UInt8, blue: UInt8) -> (red: Float, green: Float, blue: Float)
-    
-    /// Returns RGB color model values from the provided hex triplet color representation if it is valid. Otherwise, returns `nil`.
-    /// - Parameters:
-    ///   - hex: Hex triplet color representation.
-    func rgb(hex: String) -> (red: UInt8, green: UInt8, blue: UInt8)?
-    
-    /// Returns RGB color model values from the provided HSB color model values.
-    /// - Remark: HSB color model values will be normalized before transformation to avoid optinal return type.
-    /// - Parameters:
-    ///   - hue: Hue value in degrees.
-    ///   - saturation: Saturation value in percents.
-    ///   - brightness: Brightness value in percents.
-    func rgb(hue: Float, saturation: Float, brightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8)
-    
-    /// Returns RGB color model values from the provided HSL color model values.
-    /// - Remark: HSL color model values will be normalized before transformation to avoid optinal return type.
-    /// - Parameters:
-    ///   - hue: Hue value in degrees.
-    ///   - saturation: Saturation value in percents.
-    ///   - lightness: Lightness value in percents.
-    func rgb(hue: Float, saturation: Float, lightness: Float) -> (red: UInt8, green: UInt8, blue: UInt8)
-    
-    /// Returns HSB color model values from the provided RGB color model values.
-    /// - Parameters:
-    ///   - red: Red value.
-    ///   - green: Green value.
-    ///   - blue: Blue value.
-    func hsb(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Float, saturation: Float, brightness: Float)
-    
-    /// Returns HSB color model values from the provided HSL color model values.
-    /// - Parameters:
-    ///   - hue: Hue value in degrees.
-    ///   - saturation: Saturation value in percents.
-    ///   - lightness: Lightness value in percents.
-    func hsb(hue: Float, saturation: Float, lightness: Float)  -> (hue: Float, saturation: Float, brightness: Float)
-    
-    /// Returns HSL color model values from provided RGB color model values.
-    /// - Parameters:
-    ///   - red: Red value.
-    ///   - green: Green value.
-    ///   - blue: Blue value.
-    func hsl(red: UInt8, green: UInt8, blue: UInt8) -> (hue: Float, saturation: Float, lightness: Float)
-    
-    /// Returns HSL color model values from provided HSB color model values.
-    /// - Parameters:
-    ///   - hue: Hue value in degrees.
-    ///   - saturation: Saturation value in percents.
-    ///   - brightness: Brightness value in percents.
-    func hsl(hue: Float, saturation: Float, brightness: Float) -> (hue: Float, saturation: Float, lightness: Float)
-}
-
-public final class AmazingColorHelpers: IAmazingColorHelpers {
+public final class AmazingColorModelHelpers: IAmazingColorModelHelpers {
     
     // MARK: - Type Properties
     
-    public static let shared = AmazingColorHelpers()
+    public static let shared = AmazingColorModelHelpers()
     
     // MARK: - Initializers
     
     private init() { }
     
-    // MARK: - IAmazingColorHelpers
+    // MARK: - IAmazingColorModelHelpers
     
     public func normalized(hue: Float, saturation: Float, brightness: Float) -> (hue: Float, saturation: Float, brightness: Float) {
-        let hue = normalized(hue: hue)
-        let saturation = normalized(saturation: saturation)
-        let brightness = normalized(brightness: brightness)
+        let hue = AmazingHueHelpers.shared.normalized(hue: hue)
+        let saturation = normalized(percents: saturation)
+        let brightness = normalized(percents: brightness)
         
         return (hue, saturation, brightness)
     }
     
     public func normalized(hue: Float, saturation: Float, lightness: Float) -> (hue: Float, saturation: Float, lightness: Float) {
-        let hue = normalized(hue: hue)
-        let saturation = normalized(saturation: saturation)
-        let lightness = normalized(lightness: lightness)
+        let hue = AmazingHueHelpers.shared.normalized(hue: hue)
+        let saturation = normalized(percents: saturation)
+        let lightness = normalized(percents: lightness)
         
         return (hue, saturation, lightness)
     }
@@ -285,56 +196,17 @@ public final class AmazingColorHelpers: IAmazingColorHelpers {
     
     // MARK: - Private Methods
     
-    /// Returns normalized hue value in degrees.
-    private func normalized(hue: Float) -> Float {
-        if hue < .minHueValue {
-            return .minHueValue
+    /// Returns normalized percents value.
+    private func normalized(percents: Float) -> Float {
+        if percents < .minPercentsValue {
+            return .minPercentsValue
         }
         
-        else if hue >= .maxHueValue {
-            return .minHueValue
+        else if percents > .maxPercentsValue {
+            return .maxPercentsValue
         }
         
-        return hue
-    }
-    
-    /// Returns normalized saturation value in percents.
-    private func normalized(saturation: Float) -> Float {
-        if saturation < .minSaturationValue {
-            return .minSaturationValue
-        }
-        
-        else if saturation > .maxSaturationValue {
-            return .maxSaturationValue
-        }
-        
-        return saturation
-    }
-    
-    /// Returns normalized brightness value in percents from.
-    private func normalized(brightness: Float) -> Float {
-        if brightness < .minBrightnessValue {
-            return .minBrightnessValue
-        }
-        
-        else if brightness > .maxBrightnessValue {
-            return .maxBrightnessValue
-        }
-        
-        return brightness
-    }
-    
-    /// Returns normalized lightness value in percents from.
-    private func normalized(lightness: Float) -> Float {
-        if lightness < .minLightnessValue {
-            return .minLightnessValue
-        }
-        
-        else if lightness > .maxLightnessValue {
-            return .maxLightnessValue
-        }
-        
-        return lightness
+        return percents
     }
     
     /// Returns values needed for RGB color model values transformation to HSB/HSL color models.
