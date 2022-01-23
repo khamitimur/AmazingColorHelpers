@@ -52,6 +52,14 @@ public final class AmazingColorModelHelpers: IAmazingColorModelHelpers {
         return (redF, greenF, blueF)
     }
     
+    public func hex(red: UInt8, green: UInt8, blue: UInt8) -> String {
+        let redHex = hex(value: red)
+        let greenHex = hex(value: green)
+        let blueHex = hex(value: blue)
+        
+        return "#\(redHex)\(greenHex)\(blueHex)"
+    }
+    
     public func rgb(hex: String) -> (red: UInt8, green: UInt8, blue: UInt8)? {
         var hexString = hex
         
@@ -207,6 +215,10 @@ public final class AmazingColorModelHelpers: IAmazingColorModelHelpers {
         }
         
         return percents
+    }
+    
+    private func hex(value: UInt8) -> String {
+        String(format:"%02X", value)
     }
     
     /// Returns values needed for RGB color model values transformation to HSB/HSL color models.

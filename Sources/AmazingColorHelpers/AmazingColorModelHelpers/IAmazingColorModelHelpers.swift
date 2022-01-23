@@ -80,7 +80,12 @@ public protocol IAmazingColorModelHelpers: AnyObject {
     ///   - blue: Blue value.
     func percents(red: UInt8, green: UInt8, blue: UInt8) -> (red: Float, green: Float, blue: Float)
     
-    /// Returns RGB color model values transformed from the given triplet color representation.
+    /// Returns hex triplet color representation transformed from the given RGB color model values.
+    ///
+    /// Hex triplet color representation will start with octothorp symbol.
+    func hex(red: UInt8, green: UInt8, blue: UInt8) -> String
+    
+    /// Returns RGB color model values transformed from the given hex triplet color representation.
     ///
     /// Returns `nil` if  the given hex triplet color representation is not valid.
     /// - Parameters:
